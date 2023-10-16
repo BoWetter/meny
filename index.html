@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test of HTMX Layout</title>
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+</head>
+<style>
+    .green {background-color: #4CAF50;}  
+    .blue {background-color: #008CBA;}  
+    .red {background-color: #f44336;}   
+    .grau {background-color: #e7e7e7; color: black;}   
+    .black {background-color: #555555;}  
+
+    * { outline: 2px dotted red }
+* * { outline: 2px dotted green }
+* * * { outline: 1px solid blue }
+* * * * { outline: 1px solid purple }
+* * * * * { outline: 1px solid red }
+* * * * * * { outline: 2px dotted green }
+* * * * * * * { outline: 2px dotted blue }
+* * * * * * * * { outline: 2px dotted purple }
+
+ 
+div{
+  margin: 10px;
+  padding: 10px;
+}
+
+</style>
+<body>
+
+    
+<header>
+    <p>Here is the header</p>
+    <p>Version: -- placeholder for debug, build version --</p>
+</header>
+
+
+
+
+
+
+  
+
+<div id="menu">
+  menu
+
+  <div id="notifications">
+    notifications
+  </div>
+    
+  <p> Tabs w. hyperscript (non functional for now):
+    <div id="tabs" hx-target="#tab-contents" role="tablist" _="on htmx:afterOnLoad set @aria-selected of <[aria-selected=true]/> to false tell the target take .selected set @aria-selected to true">
+      <button role="tab" aria-controls="tab-content" aria-selected="true" hx-get="/tab1" class="selected">Tab 1</button>
+      <button role="tab" aria-controls="tab-content" aria-selected="false" hx-get="/tab2">Tab 2</button>
+      <button role="tab" aria-controls="tab-content" aria-selected="false" hx-get="/tab3">Tab 3</button>
+    </div>
+    
+    <div id="tab-contents" role="tabpanel" hx-get="/tab1" hx-trigger="load"></div>
+    
+    </p>
+    <p> Value select (user Lucy's profile):
+    
+   
+    <div id="subject"
+      hx-headers='{"x-user": "lucy", "x-role" : "user"}' 
+      hx-get="/nugget" 
+      hx-target="#subject" 
+      hx-trigger="load" 
+      hx-swap="outerHTML">
+    </div>
+  
+    <div id="category">
+      <label>Category</label>
+      <select name="category">
+        <option value="">-</option>
+        ...
+      </select>
+    </div>
+  
+    <div id="title">
+      <label>Title</label>
+      <select name="title">
+        <option value="">-</option>
+        ...
+      </select>
+    </div>
+   
+  </p>
+
+</div> 
+
+<div id="content">
+  content
+
+
+
+<div id="box_box1">
+  box_box1
+
+  <form>
+    <p> 
+      <div>
+        <button hx-get="/profile" hx-target="#results" hx-headers='{"x-user": "bobafett", "x-role" : "user"}'>
+          Bobafett profile
+        </button>
+        <button hx-get="/nugget/651ff664226a00efc911ec83" hx-target="#nugget_results" hx-headers='{"x-user": "bobafett", "x-role" : "user"}'>
+        Bobafett - Nugget 651ff664226a00efc911ec83
+        </button>
+      </div>
+    </p>
+    </form>
+    
+    <form>
+    <p>
+      <div>
+        <button hx-get="/profile" hx-target="#results" hx-headers='{"x-user": "skutt", "x-role" : "user"}'>
+          Skutt profile
+        </button>
+        <button hx-get="/nugget/651ff664226a00efc911ec83" hx-target="#nugget_results" hx-headers='{"x-user": "skutt", "x-role" : "user"}'>
+        Skutt - Nugget 651ff664226a00efc911ec83
+        </button>
+      </div>
+    </p>
+    </form>
+    
+    <form>
+    <p>
+      <div>
+        <button hx-get="/profile" hx-target="#results">
+            Default Profile 
+        </button>
+        <button hx-get="/nugget/651ff664226a00efc911ec83" hx-target="#nugget_results">
+          Default Profile - Nugget 651ff664226a00efc911ec83
+        </button>
+      </div>
+    </p>
+    </form>
+    
+</div> 
+
+<div id="box_container">
+  container
+
+  <div id="box_box2">
+    box_box2
+
+    <div id="results"></div>
+  </div> 
+
+  <div id="box_box3">
+    box_box3
+
+    <div id="nugget_results"></div>
+
+  </div> 
+
+</div> 
+
+
+
+
+
+</div> 
+
+
+<footer>
+    <p>Here is the footer: Copyrights, About, Links, etc.</p>
+</footer>
+
+</html>
